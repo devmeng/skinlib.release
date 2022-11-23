@@ -74,7 +74,7 @@ Before load skin, you should make a skin package for your application.
 
 **Step.4.** After that, you can call a function called **"loadSkin"** in SkinManager for loading skin.
 
-**Annotation:** ① project had config the attribute set for skin in need.
+**Annotation:** ①project had configured the attribute set for skin in need.
 
 ```kotlin
 val attributeList = mutableListOf(
@@ -161,26 +161,6 @@ fun applySkin(pairList: List<SkinPair>)
 **Step.2.** When you need to apply resources of skin, you should judge every attribute with what you config in **attrsList**. 
 
 ***Then using *SkinResources.instance* to get resource about your attribute type to apply resources.**
+## Best wishes
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+:) Enjoy!
