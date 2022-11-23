@@ -158,9 +158,9 @@ val attrsList: MutableList<String>
 fun applySkin(pairList: List<SkinPair>)
 ```
 
-**Step.2.** When you need to apply resources of skin, you should judge every attribute with what you config in **attrsList**. 
+**Step.2.** When you need to apply resources of skin, you should judge every attribute with what you config in **attrsList**. **Then using *SkinResources.instance* to get resource about your attribute type to apply resources.**
 
-***Then using *SkinResources.instance* to get resource about your attribute type to apply resources.**
+By the way, remember to refresh the state of your custom widget!
 ## Best wishes
 
 :) Enjoy!
