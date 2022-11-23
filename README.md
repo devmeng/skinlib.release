@@ -1,4 +1,4 @@
-# skinlib.release
+# skinlib.release API 26
 [![](https://jitpack.io/v/devmeng/skinlib.release.svg)](https://jitpack.io/#devmeng/skinlib.release)
 
 The repository which supports to change application's views skins in dynamic.
