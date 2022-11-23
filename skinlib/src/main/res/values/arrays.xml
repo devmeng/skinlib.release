@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="skin_attrs">
+        <item>background</item>
+        <item>backgroundTint</item>
+        <item>src</item>
+        <item>textColor</item>
+        <item>tint</item>
+        <item>drawableLeft</item>
+        <item>drawableStart</item>
+        <item>drawableRight</item>
+        <item>drawableEnd</item>
+        <item>drawableTop</item>
+        <item>drawableBottom</item>
+        <item>drawableLeftCompat</item>
+        <item>drawableStartCompat</item>
+        <item>drawableRightCompat</item>
+        <item>drawableEndCompat</item>
+        <item>drawableTopCompat</item>
+        <item>drawableBottomCompat</item>
+        <item>drawableTint</item>
+    </string-array>
+</resources>
