@@ -1,11 +1,9 @@
 package com.devmeng.skinlib.skin
 
 import android.app.Application
-import android.content.ContentProviderOperation.newCall
 import android.content.pm.PackageManager
 import android.content.res.AssetManager
 import android.content.res.Resources
-import android.telecom.Call
 import com.devmeng.skinlib.skin.entity.Skin
 import com.devmeng.skinlib.skin.utils.SkinPreference
 import com.devmeng.skinlib.skin.utils.SkinResources
@@ -18,10 +16,7 @@ import okhttp3.Response
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.net.HttpURLConnection
-import java.net.URL
 import java.util.*
-import javax.net.ssl.HttpsURLConnection
 
 /**
  * Created by Richard
@@ -51,12 +46,12 @@ class SkinManager private constructor() : Observable() {
         @JvmStatic
         fun init(
             application: Application,
-            activityLifecycle: Application.ActivityLifecycleCallbacks
+            activityLifecycleCallbacks: Application.ActivityLifecycleCallbacks
             = SkinActivityLifecycle(),
             isApplicationTypeface: Boolean = false,
             isDebug: Boolean = true
         ): SkinManager {
-            application.registerActivityLifecycleCallbacks(activityLifecycle)
+            application.registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
             SkinPreference.init(application.applicationContext)
             SkinResources.init(application.applicationContext)
             instance.application = application
@@ -147,18 +142,26 @@ class SkinManager private constructor() : Observable() {
      * 加载网络皮肤
      * @param skin 皮肤实体类
      */
-    fun loadSkin(skin: Skin) {
+    fun loadSkin(skin: Skin, md5: String = EMPTY) {
         val skins = File(application.applicationContext.filesDir, "skins")
         if (skins.exists().and(skins.isFile)) {
             skins.delete()
         }
         skins.mkdir()
         val skinFile = skin.getSkinFile(skins)
+        var cmd5 = md5
+        if (skin.md5.isNotEmpty().and(cmd5.isEmpty())) {
+            cmd5 = md5ForFile(skinFile)!!
+        }
         if (skinFile.exists()) {
             //有就应用
-            loadSkin(skin.path)
-            Log.d("skin 文件存在")
-            Log.d("模拟 load skin")
+            if (skin.md5 == cmd5) {
+                Log.d("skin 文件存在")
+                loadSkin(skin.path)
+                Log.d("load skin")
+            } else {
+                throw IllegalArgumentException("皮肤包已存在，但 MD5 值不匹配，请检查 MD5 计算规则是否相同")
+            }
             return
         }
         val tempFile = File(skinFile.parentFile, "${skin.name}.temp")
@@ -179,11 +182,12 @@ class SkinManager private constructor() : Observable() {
                     while (bs.read(bytes).also { length = it } != -1) {
                         fileOut.write(bytes, 0, length)
                     }
-                    if (skin.md5 == md5ForFile(tempFile)) {
-                        Log.d("相同")
+                    if (skin.md5 == cmd5) {
+                        tempFile.renameTo(skinFile)
+                        Log.d("md5 相同")
+                    } else {
+                        throw IllegalArgumentException("MD5 值不匹配，请检查 MD5 计算规则是否相同")
                     }
-                    tempFile.renameTo(skinFile)
-                    Log.d("模拟 load skin")
                     loadSkin(skin.path)
                 } catch (e: Exception) {
                     e.printStackTrace()

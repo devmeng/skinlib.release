@@ -109,6 +109,7 @@ class SkinLayoutFactory(val activity: Activity, val skinTypeface: Typeface?) :
 
     override fun update(o: Observable?, arg: Any?) {
         SkinThemeUtils.updateStatusBarState(activity)
+        SkinThemeUtils.updateNavigationBarState(activity)
         skinAttribute.skinTypeface?.apply {
             val typeface = SkinThemeUtils.getSkinTypeface(activity)
             skinAttribute.skinTypeface = typeface

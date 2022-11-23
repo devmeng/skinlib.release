@@ -5,6 +5,8 @@ import android.content.Context
 import android.graphics.Typeface
 import android.os.Build
 import com.devmeng.skinlib.R
+import com.devmeng.skinlib.utils.Log
+import com.devmeng.skinlib.utils.StatusBarUtils
 
 /**
  * Created by Richard
@@ -20,6 +22,8 @@ object SkinThemeUtils {
     private val SYSTEM_BAR_ATTRS =
         intArrayOf(android.R.attr.statusBarColor, android.R.attr.navigationBarColor)
 
+    private val SYSTEM_STATUS_BAR_LIGHT_MODE = intArrayOf(android.R.attr.windowLightStatusBar)
+
     private val TYPEFACE_ATTR =
         intArrayOf(R.attr.skinTypeface)
 
@@ -30,9 +34,15 @@ object SkinThemeUtils {
         }
         //获取statusBarColor与navigationBarColor  颜色值
         val statusBarId = getResId(activity, SYSTEM_BAR_ATTRS)
+        val statusBarMode = getResId(activity, SYSTEM_STATUS_BAR_LIGHT_MODE)
         if (statusBarId[0] != 0) {
             //如果statusBarColor配置颜色值，就换肤
             activity.window.statusBarColor = SkinResources.instance.getColor(statusBarId[0])
+            if (statusBarMode[0] != 0) {
+                val isBarLight = SkinResources.instance.getBoolean(statusBarMode[0])
+                Log.e("is bar light -> $isBarLight")
+                StatusBarUtils.getInstance(activity).initStatusBarState(isBarLight)
+            }
             return
         }
         //获取皮肤包中的 colorPrimaryVariant，兼容版本

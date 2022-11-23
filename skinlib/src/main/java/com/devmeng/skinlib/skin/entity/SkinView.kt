@@ -83,7 +83,7 @@ data class SkinView(var view: View, var pairList: List<SkinPair>) {
                     (view as TextView), skinResources.getColorStateList(resId)
                 )
                 //局部更改字体
-//                "skinTypeface" -> applyTypeface(skinResources.getTypeface(resId))
+                "skinTypeface" -> applyTypeface(skinResources.getTypeface(resId))
 
             }
             view.takeIf { view is TextView }.apply {
