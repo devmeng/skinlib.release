@@ -19,9 +19,14 @@ name: "Zimperium zScan"
 
 on:
   push:
-    branches: [ "master" ]
+    branches: 
+    - master
   pull_request:
-    branches: [ "master" ]
+    branches: 
+    - master
+    
+  schedule:
+  - cron: "0 2 * * 1-5"
 
 permissions:
   contents: read
@@ -29,7 +34,7 @@ permissions:
 jobs:
   zscan:
     name: zScan
-    runs-on: ubuntu-latest
+    runs-on: windows-10
     permissions:
       contents: read          # for actions/checkout to fetch code
       security-events: write  # for github/codeql-action/upload-sarif to upload SARIF results
@@ -46,9 +51,9 @@ jobs:
       timeout-minutes: 60
       with:
         # REPLACE: Zimperium Client Environment Name
-        client_env: env_string
+        client_env: meng dev
         # REPLACE: Zimperium Client ID
-        client_id: id_string
+        client_id: william278@163.com
         # REPLACE: Zimperium Client Secret
         client_secret: ${{ secrets.ZSCAN_CLIENT_SECRET }}
         # REPLACE: The path to an .ipa or .apk
