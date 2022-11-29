@@ -45,12 +45,6 @@ object SkinThemeUtils {
             }
             return
         }
-        //获取皮肤包中的 colorPrimaryVariant，兼容版本
-        val resId = getResId(activity, APPCOMPAT_COLOR_PRIMARY_VARIANT)[0]
-        if (resId == 0) {
-            return
-        }
-        activity.window.statusBarColor = SkinResources.instance.getColor(resId)
     }
 
     fun updateNavigationBarState(activity: Activity) {

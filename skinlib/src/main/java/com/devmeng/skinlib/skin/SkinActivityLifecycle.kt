@@ -63,7 +63,7 @@ class SkinActivityLifecycle : Application.ActivityLifecycleCallbacks {
         //防止重启状态栏还原
         SkinThemeUtils.updateStatusBarState(activity)
 
-        SkinManager.instance.loadSkin(SkinPreference.instance.getSkin())
+        SkinManager.instance.loadSkin(SkinPreference.instance.getSkinPath())
     }
 
     override fun onActivityPaused(activity: Activity) {

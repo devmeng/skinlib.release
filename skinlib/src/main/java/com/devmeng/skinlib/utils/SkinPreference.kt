@@ -21,6 +21,8 @@ class SkinPreference private constructor() {
 
         const val KEY_SKIN_PATH = "sp_skin_path"
 
+        const val KEY_DAY_NIGHT_MODE = "sp_day_night_mode"
+
         val instance by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
             SkinPreference()
         }
@@ -33,13 +35,12 @@ class SkinPreference private constructor() {
 
     }
 
-    fun setSkin(skinPath: String = EMPTY) {
+    fun setSkinPath(skinPath: String = EMPTY) {
         sp.edit().putString(KEY_SKIN_PATH, skinPath).apply()
     }
 
-    fun getSkin(): String {
+    fun getSkinPath(): String {
         return sp.getString(KEY_SKIN_PATH, EMPTY).toString()
     }
-
 
 }

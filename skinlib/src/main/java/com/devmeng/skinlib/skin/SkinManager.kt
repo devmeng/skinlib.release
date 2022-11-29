@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.pm.PackageManager
 import android.content.res.AssetManager
 import android.content.res.Resources
+import androidx.appcompat.app.AppCompatDelegate
 import com.devmeng.skinlib.skin.entity.Skin
 import com.devmeng.skinlib.skin.utils.SkinPreference
 import com.devmeng.skinlib.skin.utils.SkinResources
@@ -66,7 +67,7 @@ class SkinManager private constructor() : Observable() {
      * @param skinPath 如果皮肤包路径不为空则加载皮肤，反之还原皮肤
      * 1.使用 SkinResources 通过自定义的 Resources 和 AssetManager
      * 加载 PackageManager 获取的外部 apk 皮肤包
-     * @see SkinResources.applySkin
+     * @see SkinResources.applySkinPackage
      * 2.使用 SkinPreference 储存皮肤包路径
      * @see SkinPreference
      * 3.通知观察者
@@ -121,8 +122,8 @@ class SkinManager private constructor() : Observable() {
                 if (packageArchiveInfo != null) {
                     val pkgName = packageArchiveInfo.packageName
                     //存储并应用皮肤包资源，此时还没有进行皮肤的切换
-                    SkinPreference.instance.setSkin(skinPath)
-                    SkinResources.instance.applySkin(skinResources, pkgName)
+                    SkinPreference.instance.setSkinPath(skinPath)
+                    SkinResources.instance.applySkinPackage(skinResources, pkgName)
                 }
 
             } catch (e: Exception) {
@@ -130,7 +131,7 @@ class SkinManager private constructor() : Observable() {
             }
         } else {
             //还原皮肤
-            SkinPreference.instance.setSkin()
+            SkinPreference.instance.setSkinPath()
             SkinResources.instance.reset()
         }
         //通知观察者并在观察者的 update 方法中进行皮肤的应用

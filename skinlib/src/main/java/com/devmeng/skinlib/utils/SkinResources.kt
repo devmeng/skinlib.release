@@ -140,7 +140,7 @@ class SkinResources private constructor() {
      * @param pkgName 皮肤包所在的 package
      * @see com.devmeng.skinlib.skin.SkinManager.loadSkin
      */
-    fun applySkin(resources: Resources, pkgName: String) {
+    fun applySkinPackage(resources: Resources, pkgName: String) {
         skinResources = resources
         skinPkgName = pkgName
         isDefaultSkin = pkgName.isEmpty()
@@ -162,9 +162,12 @@ class SkinResources private constructor() {
 //        Log.d("resName -> $resName")
         Log.d("typeName -> $typeName")
         Log.d("entryName -> $entryName")
+        val defaultIdentifier = context.resources.getIdentifier(entryName, typeName, context.packageName)
+        Log.d("default identifier -> $defaultIdentifier")
+
 //        Log.d("skinPkgName -> $skinPkgName")
         val skinIdentifier = skinResources?.getIdentifier(entryName, typeName, skinPkgName)
-        Log.d("skinIdentifier -> $skinIdentifier")
+        Log.d("skin identifier -> $skinIdentifier")
         return skinIdentifier!!
     }
 
