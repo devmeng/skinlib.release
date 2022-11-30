@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.core.view.ViewCompat
 import androidx.core.widget.TextViewCompat
 import com.devmeng.skinlib.skin.SkinWidgetSupport
-import com.devmeng.skinlib.utils.SkinResources.Companion.init
+import com.devmeng.skinlib.skin.utils.SkinResources.Companion.init
 
 /**
  * Created by devmeng

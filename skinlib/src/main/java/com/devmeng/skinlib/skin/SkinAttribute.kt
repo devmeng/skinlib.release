@@ -6,8 +6,8 @@ import android.view.View
 import android.widget.TextView
 import com.devmeng.skinlib.skin.entity.SkinPair
 import com.devmeng.skinlib.skin.entity.SkinView
-import com.devmeng.skinlib.utils.SkinThemeUtils
-import com.devmeng.skinlib.utils.Log
+import com.devmeng.skinlib.skin.utils.SkinThemeUtils
+import com.devmeng.skinlib.skin.utils.Log
 
 /**
  * Created by devmeng

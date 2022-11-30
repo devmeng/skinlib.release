@@ -7,9 +7,9 @@ import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
-import com.devmeng.skinlib.utils.SkinPreference
-import com.devmeng.skinlib.utils.SkinThemeUtils
-import com.devmeng.skinlib.utils.Log
+import com.devmeng.skinlib.skin.utils.SkinPreference
+import com.devmeng.skinlib.skin.utils.SkinThemeUtils
+import com.devmeng.skinlib.skin.utils.Log
 
 /**
  * Created by devmeng

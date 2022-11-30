@@ -1,6 +1,6 @@
 @file: JvmName("MD5Utils")
 
-package com.devmeng.skinlib.utils
+package com.devmeng.skinlib.skin.utils
 
 import com.devmeng.skinlib.skin.EMPTY
 import java.io.File

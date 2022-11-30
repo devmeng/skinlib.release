@@ -1,4 +1,4 @@
-package com.devmeng.skinlib.utils
+package com.devmeng.skinlib.skin.utils
 
 import android.util.Log
 import com.devmeng.skinlib.skin.BUILD_TYPE
