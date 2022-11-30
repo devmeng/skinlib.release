@@ -17,7 +17,7 @@ import com.devmeng.skinlib.utils.Log
 class SkinResources private constructor() {
 
     lateinit var context: Context
-    private var skinResources: Resources? = null
+    var skinResources: Resources? = null
     private var skinPkgName: String = EMPTY
     private var isDefaultSkin = true
 
@@ -143,7 +143,7 @@ class SkinResources private constructor() {
      * @param pkgName 皮肤包所在的 package
      * @see com.devmeng.skinlib.skin.SkinManager.loadSkin
      */
-    fun applySkinPackage(resources: Resources = context.resources, pkgName: String) {
+    fun applySkinPackage(resources: Resources, pkgName: String) {
         skinResources = resources
         skinPkgName = pkgName
         isDefaultSkin = pkgName.isEmpty()
