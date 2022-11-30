@@ -4,10 +4,9 @@ import android.app.Application
 import android.content.pm.PackageManager
 import android.content.res.AssetManager
 import android.content.res.Resources
-import androidx.appcompat.app.AppCompatDelegate
 import com.devmeng.skinlib.skin.entity.Skin
-import com.devmeng.skinlib.skin.utils.SkinPreference
-import com.devmeng.skinlib.skin.utils.SkinResources
+import com.devmeng.skinlib.utils.SkinPreference
+import com.devmeng.skinlib.utils.SkinResources
 import com.devmeng.skinlib.utils.Log
 import com.devmeng.skinlib.utils.md5ForFile
 import okhttp3.Callback

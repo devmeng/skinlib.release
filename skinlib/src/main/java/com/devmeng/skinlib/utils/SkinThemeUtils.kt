@@ -1,12 +1,10 @@
-package com.devmeng.skinlib.skin.utils
+package com.devmeng.skinlib.utils
 
 import android.app.Activity
 import android.content.Context
 import android.graphics.Typeface
 import android.os.Build
 import com.devmeng.skinlib.R
-import com.devmeng.skinlib.utils.Log
-import com.devmeng.skinlib.utils.StatusBarUtils
 
 /**
  * Created by devmeng

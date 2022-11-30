@@ -1,4 +1,4 @@
-package com.devmeng.skinlib.skin.utils
+package com.devmeng.skinlib.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,7 +7,6 @@ import android.content.res.Resources
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import com.devmeng.skinlib.skin.EMPTY
-import com.devmeng.skinlib.utils.Log
 
 /**
  * Created by devmeng

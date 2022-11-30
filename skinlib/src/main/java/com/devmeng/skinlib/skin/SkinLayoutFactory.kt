@@ -6,7 +6,7 @@ import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import com.devmeng.skinlib.skin.utils.SkinThemeUtils
+import com.devmeng.skinlib.utils.SkinThemeUtils
 import com.devmeng.skinlib.utils.Log
 import java.lang.reflect.Constructor
 import java.util.*

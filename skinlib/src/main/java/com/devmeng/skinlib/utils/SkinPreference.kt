@@ -1,4 +1,4 @@
-package com.devmeng.skinlib.skin.utils
+package com.devmeng.skinlib.utils
 
 import android.content.Context
 import android.content.SharedPreferences
