@@ -55,7 +55,7 @@ data class SkinView(var view: View, var pairList: List<SkinPair>) {
             var right: Drawable? = null
             when (attrName) {
                 "background" -> {
-                    val background = skinResources.getBackground(resId)
+                    val background = skinResources.getBackground(resId = resId)
                     if (background is Int) {
                         view.setBackgroundColor(background)
                     } else {
@@ -63,27 +63,27 @@ data class SkinView(var view: View, var pairList: List<SkinPair>) {
                     }
                 }
                 "backgroundTint" -> {
-                    val colorStateList = skinResources.getColorStateList(resId)
+                    val colorStateList = skinResources.getColorStateList(color = resId)
                     view.backgroundTintList = colorStateList
                 }
                 "android:src" -> {
-                    val drawable = skinResources.getDrawable(resId)
+                    val drawable = skinResources.getDrawable(resId = resId)
                     (view as ImageView).setImageDrawable(drawable)
                 }
-                "textColor" -> (view as TextView).setTextColor(skinResources.getColorStateList(resId))
-                "tint" -> (view as ImageView).imageTintList = skinResources.getColorStateList(resId)
+                "textColor" -> (view as TextView).setTextColor(skinResources.getColorStateList(color = resId))
+                "tint" -> (view as ImageView).imageTintList = skinResources.getColorStateList(color = resId)
                 "drawableLeft", "drawableLeftCompat", "drawableStart", "drawableStartCompat" -> left =
-                    skinResources.getDrawable(resId)
+                    skinResources.getDrawable(resId = resId)
                 "drawableRight", "drawableRightCompat", "drawableEnd", "drawableEndCompat" -> right =
-                    skinResources.getDrawable(resId)
-                "drawableTop", "drawableTopCompat" -> top = skinResources.getDrawable(resId)
+                    skinResources.getDrawable(resId = resId)
+                "drawableTop", "drawableTopCompat" -> top = skinResources.getDrawable(resId = resId)
                 "drawableBottom", "drawableBottomCompat" -> bottom =
-                    skinResources.getDrawable(resId)
+                    skinResources.getDrawable(resId = resId)
                 "drawableTint" -> TextViewCompat.setCompoundDrawableTintList(
-                    (view as TextView), skinResources.getColorStateList(resId)
+                    (view as TextView), skinResources.getColorStateList(color = resId)
                 )
                 //局部更改字体
-                "skinTypeface" -> applyTypeface(skinResources.getTypeface(resId))
+                "skinTypeface" -> applyTypeface(skinResources.getTypeface(typefaceId = resId))
 
             }
             view.takeIf { view is TextView }.apply {
