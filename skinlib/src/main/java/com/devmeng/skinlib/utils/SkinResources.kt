@@ -34,32 +34,32 @@ class SkinResources private constructor() {
 
     }
 
-    fun getDimension(dimens: Int): Float {
-        val skinRes = getIdentifier(dimens)
+    fun getDimension(resources: Resources = context.resources, dimens: Int): Float {
+        val skinRes = getIdentifierFromRes(resources, dimens)
         if (isDefaultSkin.or(skinRes == 0)) {
             return context.resources.getDimension(dimens)
         }
         return skinResources!!.getDimension(skinRes)
     }
 
-    fun getColor(color: Int): Int {
-        val skinRes = getIdentifier(color)
+    fun getColor(resources: Resources = context.resources, color: Int): Int {
+        val skinRes = getIdentifierFromRes(resources, color)
         if (isDefaultSkin.or(skinRes == 0)) {
             return context.getColor(color)
         }
         return skinResources!!.getColor(skinRes, null)
     }
 
-    fun getColorId(color: Int): Int {
-        val skinRes = getIdentifier(color)
+    fun getColorId(resources: Resources = context.resources, color: Int): Int {
+        val skinRes = getIdentifierFromRes(resources, color)
         if (isDefaultSkin.or(skinRes == 0)) {
             return color
         }
         return skinRes
     }
 
-    fun getColorStateList(color: Int): ColorStateList? {
-        val skinRes = getIdentifier(color)
+    fun getColorStateList(resources: Resources = context.resources, color: Int): ColorStateList? {
+        val skinRes = getIdentifierFromRes(resources, color)
         if (isDefaultSkin.or(skinRes == 0)) {
             return context.getColorStateList(color)
         }
@@ -67,8 +67,8 @@ class SkinResources private constructor() {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    fun getDrawable(resId: Int): Drawable? {
-        val skinRes = getIdentifier(resId)
+    fun getDrawable(resources: Resources = context.resources, resId: Int): Drawable? {
+        val skinRes = getIdentifierFromRes(resources, resId)
         if (isDefaultSkin.or(skinRes == 0)) {
             return context.getDrawable(resId)
         }
@@ -76,34 +76,34 @@ class SkinResources private constructor() {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    fun getDrawableId(resId: Int): Int {
-        val skinRes = getIdentifier(resId)
+    fun getDrawableId(resources: Resources = context.resources, resId: Int): Int {
+        val skinRes = getIdentifierFromRes(resources, resId)
         if (isDefaultSkin.or(skinRes == 0)) {
             return resId
         }
         return skinRes
     }
 
-    fun getBackground(resId: Int): Any? {
+    fun getBackground(resources: Resources = context.resources, resId: Int): Any? {
         val resTypeName = context.resources.getResourceTypeName(resId)
 
         return if ("color" == resTypeName) {
-            getColor(resId)
+            getColor(resources, resId)
         } else {
-            getDrawable(resId)
+            getDrawable(resources, resId)
         }
     }
 
-    fun getBoolean(resId: Int): Boolean {
-        val skinRes = getIdentifier(resId)
+    fun getBoolean(resources: Resources = context.resources, resId: Int): Boolean {
+        val skinRes = getIdentifierFromRes(resources, resId)
         if (isDefaultSkin.or(skinRes == 0)) {
             return context.resources.getBoolean(resId)
         }
         return skinResources!!.getBoolean(skinRes)
     }
 
-    fun getTypeface(typefaceId: Int): Typeface {
-        val typefacePath = getTypefaceString(typefaceId)
+    fun getTypeface(resources: Resources = context.resources, typefaceId: Int): Typeface {
+        val typefacePath = getTypefaceString(resources, typefaceId)
         if (typefacePath.isEmpty()) {
             return Typeface.DEFAULT
         }
@@ -120,14 +120,17 @@ class SkinResources private constructor() {
         return Typeface.DEFAULT
     }
 
-    private fun getTypefaceString(skinTypeFaceId: Int): String {
+    private fun getTypefaceString(
+        resources: Resources = context.resources,
+        skinTypeFaceId: Int
+    ): String {
         if (skinTypeFaceId == 0) {
             throw Resources.NotFoundException("请在 themes 中以 strings 资源的方式引用字体文件")
         }
         if (isDefaultSkin) {
             return context.resources.getString(skinTypeFaceId)
         }
-        val resId = getIdentifier(skinTypeFaceId)
+        val resId = getIdentifierFromRes(resources, skinTypeFaceId)
         if (resId == 0) {
             return context.resources.getString(skinTypeFaceId)
         }
@@ -140,7 +143,7 @@ class SkinResources private constructor() {
      * @param pkgName 皮肤包所在的 package
      * @see com.devmeng.skinlib.skin.SkinManager.loadSkin
      */
-    fun applySkinPackage(resources: Resources, pkgName: String) {
+    fun applySkinPackage(resources: Resources = context.resources, pkgName: String) {
         skinResources = resources
         skinPkgName = pkgName
         isDefaultSkin = pkgName.isEmpty()
@@ -150,19 +153,20 @@ class SkinResources private constructor() {
      * 获取标识符
      * @param resId 皮肤包中皮肤属性对应的资源 id 例: @drawable/icon 对应的 id: Int
      */
-    fun getIdentifier(resId: Int): Int {
+    private fun getIdentifierFromRes(resources: Resources = context.resources, resId: Int): Int {
         if (isDefaultSkin) {
             return resId
         }
         //例如: @drawable/icon -> drawable
 //        val resName = context.resources.getResourceName(resId)
-        val typeName = context.resources.getResourceTypeName(resId)
+        val typeName = resources.getResourceTypeName(resId)
         //例如: @drawable/icon -> icon
-        val entryName = context.resources.getResourceEntryName(resId)
+        val entryName = resources.getResourceEntryName(resId)
 //        Log.d("resName -> $resName")
         Log.d("typeName -> $typeName")
         Log.d("entryName -> $entryName")
-        val defaultIdentifier = context.resources.getIdentifier(entryName, typeName, context.packageName)
+        val defaultIdentifier =
+            context.resources.getIdentifier(entryName, typeName, context.packageName)
         Log.d("default identifier -> $defaultIdentifier")
 
 //        Log.d("skinPkgName -> $skinPkgName")

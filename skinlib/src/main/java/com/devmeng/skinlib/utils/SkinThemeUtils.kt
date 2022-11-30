@@ -37,9 +37,9 @@ object SkinThemeUtils {
         val statusBarMode = getResId(activity, SYSTEM_STATUS_BAR_LIGHT_MODE)
         if (statusBarId[0] != 0) {
             //如果statusBarColor配置颜色值，就换肤
-            activity.window.statusBarColor = SkinResources.instance.getColor(statusBarId[0])
+            activity.window.statusBarColor = SkinResources.instance.getColor(color = statusBarId[0])
             if (statusBarMode[0] != 0) {
-                val isBarLight = SkinResources.instance.getBoolean(statusBarMode[0])
+                val isBarLight = SkinResources.instance.getBoolean(resId = statusBarMode[0])
                 Log.e("is bar light -> $isBarLight")
                 StatusBarUtils.getInstance(activity).initStatusBarState(isBarLight)
             }
@@ -57,19 +57,19 @@ object SkinThemeUtils {
         if (statusBarId[1] != 0) {
             //如果statusBarColor配置颜色值，就换肤
             activity.window.navigationBarColor =
-                SkinResources.instance.getColor(statusBarId[0]);
+                SkinResources.instance.getColor(color = statusBarId[0]);
             return
         }
         val resId = getResId(activity, APPCOMPAT_COLOR_PRIMARY_VARIANT)[0]
         if (resId == 0) {
             return
         }
-        activity.window.navigationBarColor = SkinResources.instance.getColor(resId);
+        activity.window.navigationBarColor = SkinResources.instance.getColor(color = resId);
     }
 
     fun getSkinTypeface(activity: Activity): Typeface {
         val typefaceId = getResId(activity, TYPEFACE_ATTR)[0]
-        return SkinResources.instance.getTypeface(typefaceId)
+        return SkinResources.instance.getTypeface(typefaceId = typefaceId)
     }
 
     /**
