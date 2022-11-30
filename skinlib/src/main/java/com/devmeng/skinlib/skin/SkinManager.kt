@@ -20,7 +20,7 @@ import java.io.IOException
 import java.util.*
 
 /**
- * Created by Richard
+ * Created by devmeng
  * Version : 1
  * Description :
  * 皮肤管理类:

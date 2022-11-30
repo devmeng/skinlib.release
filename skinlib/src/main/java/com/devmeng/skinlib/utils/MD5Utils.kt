@@ -8,7 +8,7 @@ import java.io.FileInputStream
 import java.security.MessageDigest
 
 /**
- * Created by Richard -> MHS
+ * Created by devmeng -> MHS
  * Date : 2022/5/31  20:56
  * Version : 1
  */

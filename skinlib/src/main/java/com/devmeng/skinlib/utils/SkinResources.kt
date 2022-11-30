@@ -10,7 +10,7 @@ import com.devmeng.skinlib.skin.EMPTY
 import com.devmeng.skinlib.utils.Log
 
 /**
- * Created by Richard
+ * Created by devmeng
  * Version : 1
  * Description :
  */

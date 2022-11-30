@@ -11,7 +11,7 @@ import com.devmeng.skinlib.skin.SkinWidgetSupport
 import com.devmeng.skinlib.skin.utils.SkinResources.Companion.init
 
 /**
- * Created by Richard
+ * Created by devmeng
  * Version : 1
  * Description :
  * 需要换肤的 View

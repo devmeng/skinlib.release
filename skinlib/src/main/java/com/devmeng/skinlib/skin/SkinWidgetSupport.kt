@@ -3,7 +3,7 @@ package com.devmeng.skinlib.skin
 import com.devmeng.skinlib.skin.entity.SkinPair
 
 /**
- * Created by Richard -> MHS
+ * Created by devmeng -> MHS
  * Version : 1
  * 对于自定义 View 的皮肤应用
  */

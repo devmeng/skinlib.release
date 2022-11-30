@@ -12,7 +12,7 @@ import com.devmeng.skinlib.skin.utils.SkinThemeUtils
 import com.devmeng.skinlib.utils.Log
 
 /**
- * Created by Richard
+ * Created by devmeng
  * Version : 1
  * Description :
  * 以切面编程的形式为每个 Activity 配置其相应的 LayoutFactory 从做换肤的准备

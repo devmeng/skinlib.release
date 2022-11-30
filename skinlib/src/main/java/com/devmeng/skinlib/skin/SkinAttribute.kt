@@ -10,7 +10,7 @@ import com.devmeng.skinlib.skin.utils.SkinThemeUtils
 import com.devmeng.skinlib.utils.Log
 
 /**
- * Created by Richard
+ * Created by devmeng
  * Version : 1
  * Description :
  * 更换皮肤时所需更换的属性
