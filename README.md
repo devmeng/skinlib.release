@@ -4,7 +4,6 @@
 The repository which supports to change application's views skins by dynamic.
 
 ## Introduce
-![](https://github.com/devmeng/skinlib.release/blob/master/images/skinlib_screen_shot.png)
 
 The project had customized **Application.ActivityLifecycleCallbacks** for listening activity lifecycle, and let the **LayoutInflater** hold the reference to factory which custom for application's view surfaces by dynamic changing. 
 
