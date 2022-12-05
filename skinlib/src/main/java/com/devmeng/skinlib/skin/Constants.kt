@@ -3,7 +3,7 @@
 package com.devmeng.skinlib.skin
 
 /**
- * Created by Richard -> MHS
+ * Created by devmeng -> MHS
  * Version : 1
  */
 const val EMPTY = ""

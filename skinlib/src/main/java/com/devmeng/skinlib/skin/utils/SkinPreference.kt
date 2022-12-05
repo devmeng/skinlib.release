@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import com.devmeng.skinlib.skin.EMPTY
 
 /**
- * Created by Richard
+ * Created by devmeng
  * Version : 1
  * Description :
  * 使用 SharedPreference 存储皮肤包路径

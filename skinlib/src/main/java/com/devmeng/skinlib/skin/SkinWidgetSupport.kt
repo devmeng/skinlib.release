@@ -1,9 +1,10 @@
 package com.devmeng.skinlib.skin
 
 import com.devmeng.skinlib.skin.entity.SkinPair
+import com.devmeng.skinlib.skin.utils.SkinResources
 
 /**
- * Created by Richard -> MHS
+ * Created by devmeng -> MHS
  * Version : 1
  * 对于自定义 View 的皮肤应用
  */
@@ -16,5 +17,5 @@ interface SkinWidgetSupport {
     /**
      * 应用皮肤资源
      */
-    fun applySkin(pairList: List<SkinPair>)
+    fun applySkin(skinResources: SkinResources, pairList: List<SkinPair>)
 }

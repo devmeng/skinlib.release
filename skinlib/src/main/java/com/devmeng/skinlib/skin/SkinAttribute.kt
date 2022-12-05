@@ -6,11 +6,11 @@ import android.view.View
 import android.widget.TextView
 import com.devmeng.skinlib.skin.entity.SkinPair
 import com.devmeng.skinlib.skin.entity.SkinView
+import com.devmeng.skinlib.skin.utils.Log
 import com.devmeng.skinlib.skin.utils.SkinThemeUtils
-import com.devmeng.skinlib.utils.Log
 
 /**
- * Created by Richard
+ * Created by devmeng
  * Version : 1
  * Description :
  * 更换皮肤时所需更换的属性
@@ -46,13 +46,13 @@ class SkinAttribute(var skinTypeface: Typeface? = null) {
         "drawableTopCompat",
         "drawableBottomCompat",
         "drawableTint",
-
         //需局部更换字体时添加属性
-        "skinTypeface"
+        "skinTypeface",
         /** 注意: attributeList 在增加属性个体时需要对
         #SkinView 中的 applySkin() 方法的 switch 增加 case
          */
     )
+
     private var widgetAttrList: List<String> = listOf()
     private val skinViews = mutableListOf<SkinView>()
 

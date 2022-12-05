@@ -7,12 +7,12 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import com.devmeng.skinlib.skin.utils.SkinThemeUtils
-import com.devmeng.skinlib.utils.Log
+import com.devmeng.skinlib.skin.utils.Log
 import java.lang.reflect.Constructor
 import java.util.*
 
 /**
- * Created by Richard
+ * Created by devmeng
  * Version : 1
  * Description :
  * 皮肤工厂:

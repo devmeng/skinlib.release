@@ -3,7 +3,7 @@ package com.devmeng.skinlib.skin.entity
 import java.io.File
 
 /**
- * Created by Richard -> MHS
+ * Created by devmeng -> MHS
  * Date : 2022/10/30  19:21
  * Version : 1
  */

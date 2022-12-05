@@ -1,11 +1,11 @@
-package com.devmeng.skinlib.utils
+package com.devmeng.skinlib.skin.utils
 
 import android.util.Log
 import com.devmeng.skinlib.skin.BUILD_TYPE
 import com.devmeng.skinlib.skin.SkinManager
 
 /**
- * Created by Richard -> MHS
+ * Created by devmeng -> MHS
  * Date : 2022/5/30  16:14
  * Version : 1
  */

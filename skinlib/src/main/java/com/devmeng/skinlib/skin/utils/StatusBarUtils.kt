@@ -1,4 +1,4 @@
-package com.devmeng.skinlib.utils
+package com.devmeng.skinlib.skin.utils
 
 import android.app.Activity
 import android.os.Build

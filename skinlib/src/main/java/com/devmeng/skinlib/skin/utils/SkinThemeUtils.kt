@@ -5,11 +5,9 @@ import android.content.Context
 import android.graphics.Typeface
 import android.os.Build
 import com.devmeng.skinlib.R
-import com.devmeng.skinlib.utils.Log
-import com.devmeng.skinlib.utils.StatusBarUtils
 
 /**
- * Created by Richard
+ * Created by devmeng
  * Version : 1
  * Description :
  * 换肤工具类

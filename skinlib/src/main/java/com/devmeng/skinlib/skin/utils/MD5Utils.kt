@@ -1,6 +1,6 @@
 @file: JvmName("MD5Utils")
 
-package com.devmeng.skinlib.utils
+package com.devmeng.skinlib.skin.utils
 
 import com.devmeng.skinlib.skin.EMPTY
 import java.io.File
@@ -8,7 +8,7 @@ import java.io.FileInputStream
 import java.security.MessageDigest
 
 /**
- * Created by Richard -> MHS
+ * Created by devmeng -> MHS
  * Date : 2022/5/31  20:56
  * Version : 1
  */

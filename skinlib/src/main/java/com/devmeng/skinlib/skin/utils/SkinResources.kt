@@ -7,17 +7,16 @@ import android.content.res.Resources
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import com.devmeng.skinlib.skin.EMPTY
-import com.devmeng.skinlib.utils.Log
 
 /**
- * Created by Richard
+ * Created by devmeng
  * Version : 1
  * Description :
  */
 class SkinResources private constructor() {
 
     lateinit var context: Context
-    private var skinResources: Resources? = null
+    var skinResources: Resources? = null
     private var skinPkgName: String = EMPTY
     private var isDefaultSkin = true
 
@@ -34,41 +33,41 @@ class SkinResources private constructor() {
 
     }
 
-    fun getDimension(dimens: Int): Float {
-        val skinRes = getIdentifier(dimens)
+    fun getDimension(resId: Int, resources: Resources = context.resources): Float {
+        val skinRes = getIdentifierFromRes(resources, resId)
         if (isDefaultSkin.or(skinRes == 0)) {
-            return context.resources.getDimension(dimens)
+            return context.resources.getDimension(resId)
         }
         return skinResources!!.getDimension(skinRes)
     }
 
-    fun getColor(color: Int): Int {
-        val skinRes = getIdentifier(color)
+    fun getColor(resId: Int, resources: Resources = context.resources): Int {
+        val skinRes = getIdentifierFromRes(resources, resId)
         if (isDefaultSkin.or(skinRes == 0)) {
-            return context.getColor(color)
+            return context.getColor(resId)
         }
         return skinResources!!.getColor(skinRes, null)
     }
 
-    fun getColorId(color: Int): Int {
-        val skinRes = getIdentifier(color)
+    fun getColorId(resId: Int, resources: Resources = context.resources): Int {
+        val skinRes = getIdentifierFromRes(resources, resId)
         if (isDefaultSkin.or(skinRes == 0)) {
-            return color
+            return resId
         }
         return skinRes
     }
 
-    fun getColorStateList(color: Int): ColorStateList? {
-        val skinRes = getIdentifier(color)
+    fun getColorStateList(resId: Int, resources: Resources = context.resources): ColorStateList? {
+        val skinRes = getIdentifierFromRes(resources, resId)
         if (isDefaultSkin.or(skinRes == 0)) {
-            return context.getColorStateList(color)
+            return context.getColorStateList(resId)
         }
         return skinResources?.getColorStateList(skinRes, null)
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    fun getDrawable(resId: Int): Drawable? {
-        val skinRes = getIdentifier(resId)
+    fun getDrawable(resId: Int, resources: Resources = context.resources): Drawable? {
+        val skinRes = getIdentifierFromRes(resources, resId)
         if (isDefaultSkin.or(skinRes == 0)) {
             return context.getDrawable(resId)
         }
@@ -76,34 +75,34 @@ class SkinResources private constructor() {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    fun getDrawableId(resId: Int): Int {
-        val skinRes = getIdentifier(resId)
+    fun getDrawableId(resId: Int, resources: Resources = context.resources): Int {
+        val skinRes = getIdentifierFromRes(resources, resId)
         if (isDefaultSkin.or(skinRes == 0)) {
             return resId
         }
         return skinRes
     }
 
-    fun getBackground(resId: Int): Any? {
+    fun getBackground(resId: Int, resources: Resources = context.resources): Any? {
         val resTypeName = context.resources.getResourceTypeName(resId)
 
         return if ("color" == resTypeName) {
-            getColor(resId)
+            getColor(resId, resources)
         } else {
-            getDrawable(resId)
+            getDrawable(resId, resources)
         }
     }
 
-    fun getBoolean(resId: Int): Boolean {
-        val skinRes = getIdentifier(resId)
+    fun getBoolean(resId: Int, resources: Resources = context.resources): Boolean {
+        val skinRes = getIdentifierFromRes(resources, resId)
         if (isDefaultSkin.or(skinRes == 0)) {
             return context.resources.getBoolean(resId)
         }
         return skinResources!!.getBoolean(skinRes)
     }
 
-    fun getTypeface(typefaceId: Int): Typeface {
-        val typefacePath = getTypefaceString(typefaceId)
+    fun getTypeface(resId: Int, resources: Resources = context.resources): Typeface {
+        val typefacePath = getTypefaceString(resources, resId)
         if (typefacePath.isEmpty()) {
             return Typeface.DEFAULT
         }
@@ -120,14 +119,17 @@ class SkinResources private constructor() {
         return Typeface.DEFAULT
     }
 
-    private fun getTypefaceString(skinTypeFaceId: Int): String {
+    private fun getTypefaceString(
+        resources: Resources = context.resources,
+        skinTypeFaceId: Int
+    ): String {
         if (skinTypeFaceId == 0) {
             throw Resources.NotFoundException("请在 themes 中以 strings 资源的方式引用字体文件")
         }
         if (isDefaultSkin) {
             return context.resources.getString(skinTypeFaceId)
         }
-        val resId = getIdentifier(skinTypeFaceId)
+        val resId = getIdentifierFromRes(resources, skinTypeFaceId)
         if (resId == 0) {
             return context.resources.getString(skinTypeFaceId)
         }
@@ -150,19 +152,20 @@ class SkinResources private constructor() {
      * 获取标识符
      * @param resId 皮肤包中皮肤属性对应的资源 id 例: @drawable/icon 对应的 id: Int
      */
-    fun getIdentifier(resId: Int): Int {
+    private fun getIdentifierFromRes(resources: Resources = context.resources, resId: Int): Int {
         if (isDefaultSkin) {
             return resId
         }
         //例如: @drawable/icon -> drawable
 //        val resName = context.resources.getResourceName(resId)
-        val typeName = context.resources.getResourceTypeName(resId)
+        val typeName = resources.getResourceTypeName(resId)
         //例如: @drawable/icon -> icon
-        val entryName = context.resources.getResourceEntryName(resId)
+        val entryName = resources.getResourceEntryName(resId)
 //        Log.d("resName -> $resName")
         Log.d("typeName -> $typeName")
         Log.d("entryName -> $entryName")
-        val defaultIdentifier = context.resources.getIdentifier(entryName, typeName, context.packageName)
+        val defaultIdentifier =
+            context.resources.getIdentifier(entryName, typeName, context.packageName)
         Log.d("default identifier -> $defaultIdentifier")
 
 //        Log.d("skinPkgName -> $skinPkgName")
