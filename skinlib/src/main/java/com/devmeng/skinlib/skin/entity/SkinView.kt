@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.core.view.ViewCompat
 import androidx.core.widget.TextViewCompat
 import com.devmeng.skinlib.skin.SkinWidgetSupport
-import com.devmeng.skinlib.skin.utils.SkinResources.Companion.init
+import com.devmeng.skinlib.skin.utils.SkinResources
 
 /**
  * Created by devmeng
@@ -46,16 +46,16 @@ data class SkinView(var view: View, var pairList: List<SkinPair>) {
         typeface?.apply {
             applyTypeface(this)
         }
-        applyWidgetSkin(pairList)
+        val skinResources = SkinResources.init(view.context.applicationContext)
+        applyWidgetSkin(skinResources, pairList)
         for ((attrName, resId) in pairList) {
-            val skinResources = init(view.context.applicationContext)
             var top: Drawable? = null
             var bottom: Drawable? = null
             var left: Drawable? = null
             var right: Drawable? = null
             when (attrName) {
                 "background" -> {
-                    val background = skinResources.getBackground(resId = resId)
+                    val background = skinResources.getBackground(resId)
                     if (background is Int) {
                         view.setBackgroundColor(background)
                     } else {
@@ -63,27 +63,28 @@ data class SkinView(var view: View, var pairList: List<SkinPair>) {
                     }
                 }
                 "backgroundTint" -> {
-                    val colorStateList = skinResources.getColorStateList(color = resId)
+                    val colorStateList = skinResources.getColorStateList(resId)
                     view.backgroundTintList = colorStateList
                 }
                 "android:src" -> {
-                    val drawable = skinResources.getDrawable(resId = resId)
+                    val drawable = skinResources.getDrawable(resId)
                     (view as ImageView).setImageDrawable(drawable)
                 }
-                "textColor" -> (view as TextView).setTextColor(skinResources.getColorStateList(color = resId))
-                "tint" -> (view as ImageView).imageTintList = skinResources.getColorStateList(color = resId)
+                "textColor" -> (view as TextView).setTextColor(skinResources.getColorStateList(resId))
+                "tint" -> (view as ImageView).imageTintList =
+                    skinResources.getColorStateList(resId)
                 "drawableLeft", "drawableLeftCompat", "drawableStart", "drawableStartCompat" -> left =
-                    skinResources.getDrawable(resId = resId)
+                    skinResources.getDrawable(resId)
                 "drawableRight", "drawableRightCompat", "drawableEnd", "drawableEndCompat" -> right =
-                    skinResources.getDrawable(resId = resId)
-                "drawableTop", "drawableTopCompat" -> top = skinResources.getDrawable(resId = resId)
+                    skinResources.getDrawable(resId)
+                "drawableTop", "drawableTopCompat" -> top = skinResources.getDrawable(resId)
                 "drawableBottom", "drawableBottomCompat" -> bottom =
-                    skinResources.getDrawable(resId = resId)
+                    skinResources.getDrawable(resId)
                 "drawableTint" -> TextViewCompat.setCompoundDrawableTintList(
-                    (view as TextView), skinResources.getColorStateList(color = resId)
+                    (view as TextView), skinResources.getColorStateList(resId)
                 )
                 //局部更改字体
-                "skinTypeface" -> applyTypeface(skinResources.getTypeface(typefaceId = resId))
+                "skinTypeface" -> applyTypeface(skinResources.getTypeface(resId))
 
             }
             view.takeIf { view is TextView }.apply {
@@ -106,9 +107,9 @@ data class SkinView(var view: View, var pairList: List<SkinPair>) {
         }
     }
 
-    private fun applyWidgetSkin(pairList: List<SkinPair>) {
+    private fun applyWidgetSkin(skinResources: SkinResources, pairList: List<SkinPair>) {
         view.takeIf { view is SkinWidgetSupport }.apply {
-            (view as? SkinWidgetSupport)?.applySkin(pairList)
+            (view as? SkinWidgetSupport)?.applySkin(skinResources, pairList)
         }
     }
 

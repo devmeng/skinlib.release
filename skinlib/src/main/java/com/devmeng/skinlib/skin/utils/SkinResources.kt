@@ -33,40 +33,40 @@ class SkinResources private constructor() {
 
     }
 
-    fun getDimension(resources: Resources = context.resources, dimens: Int): Float {
-        val skinRes = getIdentifierFromRes(resources, dimens)
+    fun getDimension(resId: Int, resources: Resources = context.resources): Float {
+        val skinRes = getIdentifierFromRes(resources, resId)
         if (isDefaultSkin.or(skinRes == 0)) {
-            return context.resources.getDimension(dimens)
+            return context.resources.getDimension(resId)
         }
         return skinResources!!.getDimension(skinRes)
     }
 
-    fun getColor(resources: Resources = context.resources, color: Int): Int {
-        val skinRes = getIdentifierFromRes(resources, color)
+    fun getColor(resId: Int, resources: Resources = context.resources): Int {
+        val skinRes = getIdentifierFromRes(resources, resId)
         if (isDefaultSkin.or(skinRes == 0)) {
-            return context.getColor(color)
+            return context.getColor(resId)
         }
         return skinResources!!.getColor(skinRes, null)
     }
 
-    fun getColorId(resources: Resources = context.resources, color: Int): Int {
-        val skinRes = getIdentifierFromRes(resources, color)
+    fun getColorId(resId: Int, resources: Resources = context.resources): Int {
+        val skinRes = getIdentifierFromRes(resources, resId)
         if (isDefaultSkin.or(skinRes == 0)) {
-            return color
+            return resId
         }
         return skinRes
     }
 
-    fun getColorStateList(resources: Resources = context.resources, color: Int): ColorStateList? {
-        val skinRes = getIdentifierFromRes(resources, color)
+    fun getColorStateList(resId: Int, resources: Resources = context.resources): ColorStateList? {
+        val skinRes = getIdentifierFromRes(resources, resId)
         if (isDefaultSkin.or(skinRes == 0)) {
-            return context.getColorStateList(color)
+            return context.getColorStateList(resId)
         }
         return skinResources?.getColorStateList(skinRes, null)
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    fun getDrawable(resources: Resources = context.resources, resId: Int): Drawable? {
+    fun getDrawable(resId: Int, resources: Resources = context.resources): Drawable? {
         val skinRes = getIdentifierFromRes(resources, resId)
         if (isDefaultSkin.or(skinRes == 0)) {
             return context.getDrawable(resId)
@@ -75,7 +75,7 @@ class SkinResources private constructor() {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    fun getDrawableId(resources: Resources = context.resources, resId: Int): Int {
+    fun getDrawableId(resId: Int, resources: Resources = context.resources): Int {
         val skinRes = getIdentifierFromRes(resources, resId)
         if (isDefaultSkin.or(skinRes == 0)) {
             return resId
@@ -83,17 +83,17 @@ class SkinResources private constructor() {
         return skinRes
     }
 
-    fun getBackground(resources: Resources = context.resources, resId: Int): Any? {
+    fun getBackground(resId: Int, resources: Resources = context.resources): Any? {
         val resTypeName = context.resources.getResourceTypeName(resId)
 
         return if ("color" == resTypeName) {
-            getColor(resources, resId)
+            getColor(resId, resources)
         } else {
-            getDrawable(resources, resId)
+            getDrawable(resId, resources)
         }
     }
 
-    fun getBoolean(resources: Resources = context.resources, resId: Int): Boolean {
+    fun getBoolean(resId: Int, resources: Resources = context.resources): Boolean {
         val skinRes = getIdentifierFromRes(resources, resId)
         if (isDefaultSkin.or(skinRes == 0)) {
             return context.resources.getBoolean(resId)
@@ -101,8 +101,8 @@ class SkinResources private constructor() {
         return skinResources!!.getBoolean(skinRes)
     }
 
-    fun getTypeface(resources: Resources = context.resources, typefaceId: Int): Typeface {
-        val typefacePath = getTypefaceString(resources, typefaceId)
+    fun getTypeface(resId: Int, resources: Resources = context.resources): Typeface {
+        val typefacePath = getTypefaceString(resources, resId)
         if (typefacePath.isEmpty()) {
             return Typeface.DEFAULT
         }
