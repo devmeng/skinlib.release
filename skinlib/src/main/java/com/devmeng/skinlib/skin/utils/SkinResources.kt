@@ -17,6 +17,7 @@ class SkinResources private constructor() {
 
     lateinit var context: Context
     var skinResources: Resources? = null
+    var isDefaultVar = true
     private var skinPkgName: String = EMPTY
     private var isDefaultSkin = true
 
@@ -38,6 +39,7 @@ class SkinResources private constructor() {
         if (isDefaultSkin.or(skinRes == 0)) {
             return context.resources.getDimension(resId)
         }
+        isDefaultVar = false
         return skinResources!!.getDimension(skinRes)
     }
 
@@ -84,7 +86,7 @@ class SkinResources private constructor() {
     }
 
     fun getBackground(resId: Int, resources: Resources = context.resources): Any? {
-        val resTypeName = context.resources.getResourceTypeName(resId)
+        val resTypeName = resources.getResourceTypeName(resId)
 
         return if ("color" == resTypeName) {
             getColor(resId, resources)
@@ -98,6 +100,7 @@ class SkinResources private constructor() {
         if (isDefaultSkin.or(skinRes == 0)) {
             return context.resources.getBoolean(resId)
         }
+        isDefaultVar = false
         return skinResources!!.getBoolean(skinRes)
     }
 
@@ -112,6 +115,7 @@ class SkinResources private constructor() {
                 // （即：app -> value.xml / value-night.xml 中 skin_ttf_* 的参数不为空）
                 return Typeface.createFromAsset(context.resources.assets, typefacePath)
             }
+            isDefaultVar = false
             return Typeface.createFromAsset(skinResources?.assets, typefacePath)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -171,12 +175,14 @@ class SkinResources private constructor() {
 //        Log.d("skinPkgName -> $skinPkgName")
         val skinIdentifier = skinResources?.getIdentifier(entryName, typeName, skinPkgName)
         Log.d("skin identifier -> $skinIdentifier")
+        isDefaultVar = skinIdentifier == 0
         return skinIdentifier!!
     }
 
     fun reset() {
         skinResources = null
         skinPkgName = EMPTY
+        isDefaultVar = true
         isDefaultSkin = true
     }
 
