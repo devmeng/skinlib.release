@@ -17,7 +17,6 @@ class SkinResources private constructor() {
 
     lateinit var context: Context
     var skinResources: Resources? = null
-    var isDefaultVar = true
     private var skinPkgName: String = EMPTY
     private var isDefaultSkin = true
 
@@ -39,8 +38,12 @@ class SkinResources private constructor() {
         if (isDefaultSkin.or(skinRes == 0)) {
             return context.resources.getDimension(resId)
         }
-        isDefaultVar = false
-        return skinResources!!.getDimension(skinRes)
+        val dimension = try {
+            skinResources?.getDimension(skinRes)!!
+        } catch (_: Exception) {
+            context.resources.getDimension(skinRes)
+        }
+        return dimension
     }
 
     fun getColor(resId: Int, resources: Resources = context.resources): Int {
@@ -48,7 +51,12 @@ class SkinResources private constructor() {
         if (isDefaultSkin.or(skinRes == 0)) {
             return context.getColor(resId)
         }
-        return skinResources!!.getColor(skinRes, null)
+        val color = try {
+            skinResources?.getColor(skinRes, null)!!
+        } catch (_: Exception) {
+            context.getColor(skinRes)
+        }
+        return color
     }
 
     fun getColorId(resId: Int, resources: Resources = context.resources): Int {
@@ -64,7 +72,12 @@ class SkinResources private constructor() {
         if (isDefaultSkin.or(skinRes == 0)) {
             return context.getColorStateList(resId)
         }
-        return skinResources?.getColorStateList(skinRes, null)
+        val colorStateList = try {
+            skinResources?.getColorStateList(skinRes, null)
+        } catch (_: Exception) {
+            context.getColorStateList(skinRes)
+        }
+        return colorStateList
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -73,7 +86,12 @@ class SkinResources private constructor() {
         if (isDefaultSkin.or(skinRes == 0)) {
             return context.getDrawable(resId)
         }
-        return skinResources!!.getDrawable(skinRes, null)
+        val drawable = try {
+            skinResources?.getDrawable(skinRes, null)
+        } catch (_: Exception) {
+            context.getDrawable(skinRes)
+        }
+        return drawable
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -100,8 +118,12 @@ class SkinResources private constructor() {
         if (isDefaultSkin.or(skinRes == 0)) {
             return context.resources.getBoolean(resId)
         }
-        isDefaultVar = false
-        return skinResources!!.getBoolean(skinRes)
+        val bool = try {
+            skinResources?.getBoolean(skinRes)!!
+        } catch (_: Exception) {
+            context.resources.getBoolean(skinRes)
+        }
+        return bool
     }
 
     fun getTypeface(resId: Int, resources: Resources = context.resources): Typeface {
@@ -115,7 +137,6 @@ class SkinResources private constructor() {
                 // （即：app -> value.xml / value-night.xml 中 skin_ttf_* 的参数不为空）
                 return Typeface.createFromAsset(context.resources.assets, typefacePath)
             }
-            isDefaultVar = false
             return Typeface.createFromAsset(skinResources?.assets, typefacePath)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -175,14 +196,12 @@ class SkinResources private constructor() {
 //        Log.d("skinPkgName -> $skinPkgName")
         val skinIdentifier = skinResources?.getIdentifier(entryName, typeName, skinPkgName)
         Log.d("skin identifier -> $skinIdentifier")
-        isDefaultVar = skinIdentifier == 0
         return skinIdentifier!!
     }
 
     fun reset() {
         skinResources = null
         skinPkgName = EMPTY
-        isDefaultVar = true
         isDefaultSkin = true
     }
 
