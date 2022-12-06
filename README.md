@@ -39,7 +39,7 @@ First, you should initialize the skin function in your **Application** which ext
 ```kotlin
 SkinManager.init(
             application: Application,
-   			activities: MutableList<String> = mutableListof(),
+            activities: MutableList<String> = mutableListof(),
             activityLifecycleCallbacks: Application.ActivityLifecycleCallbacks
             = SkinActivityLifecycle(activities),
             isApplicationTypeface: Boolean = false,
