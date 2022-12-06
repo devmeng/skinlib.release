@@ -3,7 +3,6 @@ package com.devmeng.skinlib.skin.utils
 import android.app.Activity
 import android.content.Context
 import android.graphics.Typeface
-import android.os.Build
 import com.devmeng.skinlib.R
 
 /**
@@ -26,17 +25,13 @@ object SkinThemeUtils {
         intArrayOf(R.attr.skinTypeface)
 
     fun updateStatusBarState(activity: Activity) {
-        //5.0 以上才能修改
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            return;
-        }
         //获取statusBarColor与navigationBarColor  颜色值
         val statusBarId = getResId(activity, SYSTEM_BAR_ATTRS)
         val statusBarMode = getResId(activity, SYSTEM_STATUS_BAR_LIGHT_MODE)
-        if (statusBarId[0] != 0) {
+        if (statusBarId[0] > 0) {
             //如果statusBarColor配置颜色值，就换肤
             activity.window.statusBarColor = SkinResources.instance.getColor(statusBarId[0])
-            if (statusBarMode[0] != 0) {
+            if (statusBarMode[0] > 0) {
                 val isBarLight = SkinResources.instance.getBoolean(statusBarMode[0])
                 Log.e("is bar light -> $isBarLight")
                 StatusBarUtils.getInstance(activity).initStatusBarState(isBarLight)
@@ -45,13 +40,9 @@ object SkinThemeUtils {
     }
 
     fun updateNavigationBarState(activity: Activity) {
-        //5.0 以上才能修改
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            return;
-        }
         //获取statusBarColor与navigationBarColor  颜色值
         val statusBarId = getResId(activity, SYSTEM_BAR_ATTRS)
-        if (statusBarId[1] != 0) {
+        if (statusBarId[1] > 0) {
             //如果statusBarColor配置颜色值，就换肤
             activity.window.navigationBarColor =
                 SkinResources.instance.getColor(statusBarId[0]);

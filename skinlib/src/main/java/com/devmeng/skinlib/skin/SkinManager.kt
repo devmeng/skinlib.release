@@ -5,10 +5,7 @@ import android.content.pm.PackageManager
 import android.content.res.AssetManager
 import android.content.res.Resources
 import com.devmeng.skinlib.skin.entity.Skin
-import com.devmeng.skinlib.skin.utils.SkinPreference
-import com.devmeng.skinlib.skin.utils.SkinResources
-import com.devmeng.skinlib.skin.utils.Log
-import com.devmeng.skinlib.skin.utils.md5ForFile
+import com.devmeng.skinlib.skin.utils.*
 import okhttp3.Callback
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -16,7 +13,6 @@ import okhttp3.Response
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.util.*
 
 /**
  * Created by devmeng
@@ -32,7 +28,7 @@ import java.util.*
  * 3.通知观察者
  *
  */
-class SkinManager private constructor() : Observable() {
+class SkinManager private constructor() : ObservableImpl() {
 
     private lateinit var application: Application
 
@@ -76,41 +72,13 @@ class SkinManager private constructor() : Observable() {
             try {
                 Log.d("skinPath -> $skinPath")
                 val assetManager = AssetManager::class.java.newInstance()
-                /*val method =
-                    assetManager.javaClass.getMethod(
-                        "addAssetPathInternal",
-                        String::class.java,
-                        Boolean::class.java,
-                        Boolean::class.java
-                    )*/
                 val method = assetManager.javaClass.getMethod(
                     "addAssetPath",
                     String::class.java
                 )
-//                method.invoke(assetManager, skinPath, false, false)
                 method.invoke(assetManager, skinPath)
                 val resources = application.resources
-                //通过反射获取 ResourceImpl 并将 mAssets 等变量赋值
 
-                /*
-                val resourcesImpl =
-                    Resources::class.java.classLoader!!
-                        .loadClass("android.content.res.ResourcesImpl")
-
-                val assets = resourcesImpl.getDeclaredField("mAssets")
-                val metrics = resourcesImpl.getDeclaredField("mMetrics")
-                val config = resourcesImpl.getDeclaredField("mConfiguration")
-                metrics.isAccessible = true
-                config.isAccessible = true
-
-                assets.set(resourcesImpl, assetManager)
-                metrics.set(resourcesImpl, resources.displayMetrics)
-                config.set(resourcesImpl, resources.configuration)
-
-                val mResourcesImpl = Resources::class.java.getField("mResourcesImpl")
-
-                mResourcesImpl.set(resources, resourcesImpl)
-*/
                 val skinResources =
                     Resources(assetManager, resources.displayMetrics, resources.configuration)
 
@@ -121,7 +89,6 @@ class SkinManager private constructor() : Observable() {
                 if (packageArchiveInfo != null) {
                     val pkgName = packageArchiveInfo.packageName
                     //存储并应用皮肤包资源，此时还没有进行皮肤的切换
-                    SkinPreference.instance.setSkinPath(skinPath)
                     SkinResources.instance.applySkinPackage(skinResources, pkgName)
                 }
 
@@ -130,12 +97,12 @@ class SkinManager private constructor() : Observable() {
             }
         } else {
             //还原皮肤
-            SkinPreference.instance.setSkinPath()
-            SkinResources.instance.reset()
+            SkinResources.instance.restore()
         }
         //通知观察者并在观察者的 update 方法中进行皮肤的应用
         setChanged()
         notifyObservers()
+        SkinPreference.instance.setSkinPath(skinPath)
     }
 
     /**

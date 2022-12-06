@@ -38,7 +38,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.devmeng'
                 artifactId = 'skinlib'
-                version = '1.0.2'
+                version = '1.0.4'
             }
         }
     }

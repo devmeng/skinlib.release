@@ -7,9 +7,10 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import com.devmeng.skinlib.skin.utils.Log
+import com.devmeng.skinlib.skin.utils.ObservableImpl
+import com.devmeng.skinlib.skin.utils.ObserverImpl
 import com.devmeng.skinlib.skin.utils.SkinThemeUtils
 import java.lang.reflect.Constructor
-import java.util.*
 
 /**
  * Created by devmeng
@@ -35,7 +36,7 @@ import java.util.*
  */
 class SkinLayoutFactory(private val activity: Activity, private val skinTypeface: Typeface?) :
     LayoutInflater.Factory2,
-    Observer {
+    ObserverImpl {
 
     private val viewConMap: HashMap<String, Constructor<out View>> = hashMapOf()
 
@@ -107,7 +108,7 @@ class SkinLayoutFactory(private val activity: Activity, private val skinTypeface
         return null
     }
 
-    override fun update(o: Observable?, arg: Any?) {
+    override fun update(o: ObservableImpl?, arg: Any?) {
         SkinThemeUtils.updateStatusBarState(activity)
         SkinThemeUtils.updateNavigationBarState(activity)
         skinAttribute.skinTypeface?.apply {

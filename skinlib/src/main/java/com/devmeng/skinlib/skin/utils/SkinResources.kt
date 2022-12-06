@@ -177,6 +177,7 @@ class SkinResources private constructor() {
      * 获取标识符
      * @param resId 皮肤包中皮肤属性对应的资源 id 例: @drawable/icon 对应的 id: Int
      */
+    @SuppressLint("DiscouragedApi")
     private fun getIdentifierFromRes(resources: Resources = context.resources, resId: Int): Int {
         if (isDefaultSkin) {
             return resId
@@ -199,7 +200,7 @@ class SkinResources private constructor() {
         return skinIdentifier!!
     }
 
-    fun reset() {
+    fun restore() {
         skinResources = null
         skinPkgName = EMPTY
         isDefaultSkin = true
