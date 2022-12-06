@@ -1,4 +1,4 @@
-# skinlib.release API 26 [![](https://jitpack.io/v/devmeng/skinlib.release.svg)](https://jitpack.io/#devmeng/skinlib.release)
+# skinlib.release  API 26 [![](https://jitpack.io/v/devmeng/skinlib.release.svg)](https://jitpack.io/#devmeng/skinlib.release) 
 
 The repository which supports to change application's views skins by dynamic.
 
@@ -8,7 +8,7 @@ The project had customized **Application.ActivityLifecycleCallbacks** for listen
 
 Then, the point is project having overridden the function of **LayoutInflater.Factory2** for creating the application's views with new skins. And when application loads new skin for its views, manager of skins always notifies skin factory to apply skin for views.
 
-How to attach the skin resources when we apply skins? The project instantiating **Resources** of skins in this vers.(after v1.0.0 will research how to instantiate it by reflection) about this question. After that, project will use skin resources entity for getting the resources' id by its name in the skins packages that what you had packaged, so you have to keep the resources' name between application and skin packages to same.
+How to attach the skin resources when we apply skins? The project had instantiated **Resources** of skins in this version. After that, project will use skin resources entity for getting the resources' id by its name in the skins packages that what you had packaged, so you have to keep the resources' name between application and skin packages to same.
 
 ## Config Environment
 
@@ -22,11 +22,11 @@ repositories {
 }
 ```
 
-And then configs the dependence under your project.
+And then configs the dependence under your project. **(latest.release = 1.0.4)**
 
 ```groovy
 dependencies {
-    implementation 'com.github.devmeng:skinlib.release:1.0.1'
+    implementation 'com.github.devmeng:skinlib.release:latest.release'
 }
 ```
 
@@ -39,8 +39,9 @@ First, you should initialize the skin function in your **Application** which ext
 ```kotlin
 SkinManager.init(
             application: Application,
+   			activities: MutableList<String> = mutableListof(),
             activityLifecycleCallbacks: Application.ActivityLifecycleCallbacks
-            = SkinActivityLifecycle(),
+            = SkinActivityLifecycle(activities),
             isApplicationTypeface: Boolean = false,
             isDebug: Boolean = true
         )
@@ -48,12 +49,13 @@ SkinManager.init(
 
 Let's check the arguments for **SkinManager**.
 
-| Name                       | Introduce                                                    | Default               |
-| -------------------------- | ------------------------------------------------------------ | --------------------- |
-| application                | attach to application                                        |                       |
-| activityLifecycleCallbacks | your custom entity for listening activitylifecycle and callback | SkinActivityLifecycle |
-| isApplicationTypeface      | switch of application typeface                               | false                 |
-| isDebug                    | switch of debug                                              | true                  |
+| Name                       | Introduce                                                    | Default               | Version |
+| -------------------------- | ------------------------------------------------------------ | --------------------- | ------- |
+| application                | Attach to application                                        |                       |         |
+| activities                 | Which Activities you wanna change skins. **(add activity shortClassName or simpleName)** | mutableListof()       | ＞1.0.4 |
+| activityLifecycleCallbacks | Your custom entity for listening activitylifecycle and callback | SkinActivityLifecycle |         |
+| isApplicationTypeface      | Switch of application typeface                               | false                 |         |
+| isDebug                    | Switch of debug                                              | true                  |         |
 
 So, after checking, you can use it in application easily:
 
@@ -153,13 +155,26 @@ val attrsList: MutableList<String>
 
 /**
  * changing skin callback skin resources list
+ * <1.0.3
+ * applySkin(pairList: List<SkinPair>)
+ * ≥1.0.3 
  */
-fun applySkin(pairList: List<SkinPair>)
+fun applySkin(skinResources: SkinResources, pairList: List<SkinPair>)
 ```
+
+Let's check **SkinPair** entity.
+
+| Name     | Introduce                                   |
+| -------- | ------------------------------------------- |
+| attrName | Your custom widget attribute name for skins |
+| resId    | Resource id for skins in SkinResources      |
 
 **Step.2.** When you need to apply resources of skin, you should judge every attribute with what you config in **attrsList**. **Then using *SkinResources.instance* to get resource about your attribute type to apply resources.**
 
+**Step.3.** This step is important for changing custom widget skins. You should get resources from **SkinResources** when you change them by scope of switch. (After current version, project will import a plugin for creating them to salvage your time)
+
 By the way, remember to refresh the state of your custom widget!
+
 ## Best wishes
 
-:) Enjoy!
+Updating from time to time, please keep following. ;)
