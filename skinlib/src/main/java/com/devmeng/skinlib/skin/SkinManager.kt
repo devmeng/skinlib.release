@@ -31,6 +31,7 @@ import java.io.IOException
 class SkinManager private constructor() : ObservableImpl() {
 
     private lateinit var application: Application
+    private lateinit var activityLifecycleCallbacks: Application.ActivityLifecycleCallbacks
 
     companion object {
 
@@ -42,8 +43,9 @@ class SkinManager private constructor() : ObservableImpl() {
         @JvmStatic
         fun init(
             application: Application,
+            activities: MutableList<String> = mutableListOf(),
             activityLifecycleCallbacks: Application.ActivityLifecycleCallbacks
-            = SkinActivityLifecycle(),
+            = SkinActivityLifecycle(activities),
             isApplicationTypeface: Boolean = false,
             isDebug: Boolean = true
         ): SkinManager {
@@ -51,9 +53,15 @@ class SkinManager private constructor() : ObservableImpl() {
             SkinPreference.init(application.applicationContext)
             SkinResources.init(application.applicationContext)
             instance.application = application
+            instance.activityLifecycleCallbacks = activityLifecycleCallbacks
             IS_APPLICATION_TYPEFACE = isApplicationTypeface
             BUILD_TYPE = isDebug
             return instance
+        }
+
+        @JvmStatic
+        fun recycle() {
+            instance.application.unregisterActivityLifecycleCallbacks(instance.activityLifecycleCallbacks)
         }
     }
 

@@ -7,9 +7,10 @@ import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import com.devmeng.skinlib.skin.utils.Log
 import com.devmeng.skinlib.skin.utils.SkinPreference
 import com.devmeng.skinlib.skin.utils.SkinThemeUtils
-import com.devmeng.skinlib.skin.utils.Log
+import java.lang.ref.WeakReference
 
 /**
  * Created by devmeng
@@ -19,12 +20,16 @@ import com.devmeng.skinlib.skin.utils.Log
  * 并且对每一个 Factory 进行观察者注册
  *
  */
-class SkinActivityLifecycle : Application.ActivityLifecycleCallbacks {
+class SkinActivityLifecycle(val activities: MutableList<String>) :
+    Application.ActivityLifecycleCallbacks {
 
     private val factoryMap: HashMap<Activity, SkinLayoutFactory> = hashMapOf()
 
     @SuppressLint("DiscouragedPrivateApi")
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+        if (singleApplySkin(activity)) {
+            return
+        }
         //防止重启状态栏还原
 //        SkinThemeUtils.updateStatusBarState(activity)
         //加载皮肤包 字体
@@ -60,6 +65,9 @@ class SkinActivityLifecycle : Application.ActivityLifecycleCallbacks {
     }
 
     override fun onActivityResumed(activity: Activity) {
+        if (singleApplySkin(activity)) {
+            return
+        }
         //防止重启状态栏还原
         SkinThemeUtils.updateStatusBarState(activity)
 
@@ -79,8 +87,23 @@ class SkinActivityLifecycle : Application.ActivityLifecycleCallbacks {
     }
 
     override fun onActivityDestroyed(activity: Activity) {
+        if (singleApplySkin(activity)) {
+            return
+        }
         //取消观察者
         val factory = factoryMap.remove(activity)
         SkinManager.instance.deleteObserver(factory)
+    }
+
+    private fun singleApplySkin(activity: Activity): Boolean {
+        if ((activities.size > 0).and(
+                !activities.contains(
+                    WeakReference(activity).get()?.componentName?.shortClassName?.substring(1)
+                )
+            )
+        ) {
+            return true
+        }
+        return false
     }
 }
