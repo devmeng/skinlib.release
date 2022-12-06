@@ -41,7 +41,6 @@ object SkinThemeUtils {
                 Log.e("is bar light -> $isBarLight")
                 StatusBarUtils.getInstance(activity).initStatusBarState(isBarLight)
             }
-            return
         }
     }
 

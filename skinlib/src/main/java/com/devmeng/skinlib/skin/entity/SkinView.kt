@@ -46,7 +46,7 @@ data class SkinView(var view: View, var pairList: List<SkinPair>) {
         typeface?.apply {
             applyTypeface(this)
         }
-        val skinResources = SkinResources.init(view.context.applicationContext)
+        val skinResources = SkinResources.instance
         applyWidgetSkin(skinResources, pairList)
         for ((attrName, resId) in pairList) {
             var top: Drawable? = null
