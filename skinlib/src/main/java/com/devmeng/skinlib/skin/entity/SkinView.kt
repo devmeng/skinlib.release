@@ -66,7 +66,7 @@ data class SkinView(var view: View, var pairList: List<SkinPair>) {
                     val colorStateList = skinResources.getColorStateList(resId)
                     view.backgroundTintList = colorStateList
                 }
-                "android:src" -> {
+                "src" -> {
                     val drawable = skinResources.getDrawable(resId)
                     (view as ImageView).setImageDrawable(drawable)
                 }
