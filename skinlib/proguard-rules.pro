@@ -19,7 +19,15 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
--keepclasseswithmembernames class com.devmeng.skinlib.skin.SkinManager{
-    public static *;
-    public *;
+-keepclassmembernames public class com.devmeng.skinlib.skin.SkinLayoutFactory{
+    public android.view.View *;
+    public void *;
+}
+
+-keepclassmembernames public class com.devmeng.skinlib.skin.SkinActivityLifecycle{
+    public void *;
+}
+
+-keepclassmembernames public interface com.devmeng.skinlib.skin.utils.ObserverImpl{
+    *;
 }
