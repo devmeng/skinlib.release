@@ -1,10 +1,10 @@
-# skinlib.release  API 23 [![](https://jitpack.io/v/devmeng/skinlib.release.svg)](https://jitpack.io/#devmeng/skinlib.release) 
+# skinlib.release  API 23 [![](https://jitpack.io/v/devmeng/skinlib.release.svg)](https://jitpack.io/#devmeng/skinlib.release)
 
 The repository which supports to change application's views skins by dynamic.
 
 ## Introduce
 
-The project had customized **Application.ActivityLifecycleCallbacks** for listening activity lifecycle, and let the **LayoutInflater** hold the reference to factory which custom for application's view surfaces by dynamic changing. 
+The project had customized **Application.ActivityLifecycleCallbacks** for listening activity lifecycle, and let the **LayoutInflater** hold the reference to factory which custom for application's view surfaces by dynamic changing.
 
 Then, the point is project having overridden the function of **LayoutInflater.Factory2** for creating the application's views with new skins. And when application loads new skin for its views, manager of skins always notifies skin factory to apply skin for views.
 
@@ -22,7 +22,7 @@ repositories {
 }
 ```
 
-And then configs the dependence under your project. **(latest.release = 1.0.4)**
+And then configs the dependence under your project.
 
 ```groovy
 dependencies {
@@ -39,7 +39,7 @@ First, you should initialize the skin function in your **Application** which ext
 ```kotlin
 SkinManager.init(
             application: Application,
-            activities: MutableList<String> = mutableListof(),
+   			activities: MutableList<String> = mutableListof(),
             activityLifecycleCallbacks: Application.ActivityLifecycleCallbacks
             = SkinActivityLifecycle(activities),
             isApplicationTypeface: Boolean = false,
@@ -145,7 +145,7 @@ SkinManager.instance.loadSkin()
 
 ### Skinning for Custom Widget
 
-**Step.1.** If you wanna change the widget that you custom, let your widget implements **com.devmeng.skinlib.skin.SkinWidgetSupport** and overrides variant and function what in it.
+**Step.1.** If you wanna change the widget which you custom, please implements **com.devmeng.skinlib.skin.SkinWidgetSupport** and overrides variant and function in it.
 
 ```kotlin
 /**
