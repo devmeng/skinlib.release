@@ -172,6 +172,7 @@ class SkinManager private constructor() : ObservableImpl() {
                 }
             }
         })
+
     }
 
 }
