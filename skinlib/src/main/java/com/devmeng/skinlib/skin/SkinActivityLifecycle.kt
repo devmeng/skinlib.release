@@ -37,6 +37,7 @@ class SkinActivityLifecycle(private val activities: MutableList<String>) :
                 Log.e(e.stackTraceToString())
             }
         }
+        //设置皮肤工厂
         val factory = SkinLayoutFactory(activity, skinTypeface)
         layoutInflater.factory2 = factory
         //注册观察者
